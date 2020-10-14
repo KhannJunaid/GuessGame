@@ -1,0 +1,36 @@
+body{
+    text-align:center;
+    }
+    label{
+        font-size: 23px;      
+    }
+    div{
+        margin: 20px;
+    }
+    input[type="button"]{
+        background-color: rgb(95, 6, 6);
+border: none;
+color: rgb(219, 211, 211);
+padding: 4.5px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 15px;
+margin: 3px 2px;
+cursor: pointer;
+
+    }
+    .feedbackLabel{
+        width: 100px;
+        background-color: rgb(158, 20, 20);
+        text-align: center;
+        color: rgb(208, 212, 216);
+    }
+    label[id="display"]{
+    float:block;
+    margin-right: 220px;
+    }
+input[id="guessNumber"]
+{
+    padding: 4px 10px;
+}

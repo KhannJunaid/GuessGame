@@ -1,0 +1,135 @@
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+        <h1>Number Guessing Game</h1>
+      <h2>Enter a number between 1-100</h2>
+        <div>
+<label>Enter Number :</label>
+<input type="text" id="guessNumber">
+<input type="button" value="Check Number" onclick="checkGuessNumber()" id="button"><br>
+</div>
+<div>
+    <label class="previousNumbersLabel" id= "display">Your PreviousNumbers:</label>
+</div>
+<div>
+        <label class="feedbackLabel" id="feedbackLabel"></label><br>
+    </div>
+<div>
+    <label class="resultLabel" id="label"></label><br>
+</div>
+
+<div>
+    <input type="button" value="Restart Game" onclick="restartGame()" id="restart">
+</div>
+
+<script>
+    let max=100;
+    let min=1;
+    const randomNumber = generateRandomNumber();
+    turnNumber=0;
+    let previousNumbers = [];
+    guessNumber.focus();
+    document.getElementById("restart").style.visibility="hidden";
+
+    // function getElementClass(classname){
+    //     return document.getElementsByClassName(classname)[0];
+    // }
+
+    function getElement(id){
+        let element =document.getElementById(id);
+        if(element!=undefined){
+            return element;
+        }else{
+            return document.getElementsByClassName(id)[0];
+        }
+}
+    function isValid(guessNumber){
+       
+        if ((guessNumber>max) || (guessNumber<min) || (isNaN(guessNumber))){
+            alert("Enter a valid input");
+            getElement("guessNumber").value="";
+            return false;
+        }
+            return true;
+   
+    }
+    function checkGuessNumber(){
+        let guessNumberText = document.getElementById("guessNumber").value;
+        let guessNumber = parseInt(guessNumberText);
+        
+        if(!isValid(guessNumber)){
+            return;
+
+        }
+        turnNumber++;
+
+          if(guessNumber===randomNumber){
+            youWin();
+        }
+        else if(guessNumber>randomNumber){
+            greaterGuessNumber();
+        }
+        else{
+            lowerGuessNumber();
+        }        
+        showPreviousNumber(guessNumber);
+           
+        if(turnNumber>9){
+            gameOver();
+        }
+        const guessfield=document.getElementById("guessNumber");
+        guessfield.focus();
+    }
+
+    function settingOnGameOver() {
+        getElement("button").disabled="true";
+        getElement("restart").style.visibility="visible";
+        getElement("guessNumber").disabled="true";
+    }
+    function gameOver(){
+        getElement("resultLabel").innerText="You Lose Game Over!!!";
+        getElement("label").style.background = "red";
+        getElement("feedbackLabel").innerHTML="";
+        settingOnGameOver();
+        }
+    function youWin(){
+        getElement("resultLabel").innerText="You Win";
+        getElement("label").style.background = "rgb(0, 179, 0)";
+        getElement("feedbackLabel").innerText="";
+        settingOnGameOver();
+    }
+    function greaterGuessNumber(){
+        getElement("resultLabel").innerText="Your guess is high";
+        getElement("feedbackLabel").innerText="Your guess is wrong!";
+    }
+    function lowerGuessNumber(){
+        getElement("resultLabel").innerText="Your guess is low";
+        getElement("feedbackLabel").innerText="Your guess is wrong!";   
+    }
+    function showPreviousNumber(guessNumber){
+        previousNumbers.push(guessNumber);
+         const numberString =previousNumbers.join('  ');
+         getElement("previousNumbersLabel").innerText=  "Your PreviousNumbers: " +numberString;
+         getElement("guessNumber").value="";
+    }
+    function restartGame(){
+        getElement("restart").style.visibility="hidden";
+        getElement("button").disabled=false;
+        getElement("guessNumber").disabled=false;
+        getElement("label").innerHTML="";
+        getElement("display").innerHTML = "Your prevous numbers: ";
+        getElement("guessNumber").innerHTML="";
+        getElement("feedbackLabel").innerHTML="";
+        getElement("label").style.background = "";
+        guessNumber.focus();
+        previousNumbers = [];
+        turnNumber=0;
+    }
+    function generateRandomNumber(){
+        return Math.floor((Math.random() * max) + min );
+    }
+</script>
+</body>
+</html>
